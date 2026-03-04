@@ -32,20 +32,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);
 .lang-btn.active{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:700}
 
 /* HEADER */
-/* SOSTITUISCI IL TESTO IN MAIUSCOLO NELL'URL QUI SOTTO CON IL TUO BASE64 LUNGHISSIMO DELLO SFONDO */
-.header{background:var(--navy);padding:32px 20px 28px;text-align:center;position:relative;overflow:hidden;background-image:url('INSERISCI_QUI_IL_TUO_BASE64_DELLO_SFONDO');background-size:cover;background-position:center 40%}
-.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to bottom, rgba(30,43,58,0.72) 0%, rgba(30,43,58,0.82) 60%, rgba(30,43,58,0.95) 100%);pointer-events:none}
+.header{background:var(--navy);padding:32px 20px 28px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to bottom, rgba(30,43,58,0.72) 0%, rgba(30,43,58,0.82) 60%, rgba(30,43,58,0.95) 100%);pointer-events:none;z-index:0}
 
-/* LA REGOLA CHE RISOLVE LA TRASPARENZA, PORTANDO LOGO E TESTO IN PRIMO PIANO */
-.header > * { position: relative; z-index: 1; }
+/* ===== FIX PRINCIPALE: logo e testi sopra l'overlay ===== */
+.header > *{position:relative;z-index:1}
 
 .logo-wrap{display:flex;justify-content:center;margin-bottom:14px}
 .logo-img{width:180px;height:180px;object-fit:contain}
 
-/* LA REGOLA CHE RENDE BIANCHI I TESTI DEL TITOLO E DEL SOTTOTITOLO */
-.header-eyebrow { font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--white); margin-bottom: 6px; }
-.header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,6vw,2.6rem);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,0.9),0 0 30px rgba(0,0,0,0.8)}
-
+.header-eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#FFFFFF;margin-bottom:6px}
+.header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,6vw,2.6rem);font-weight:700;color:#FFFFFF;line-height:1.1;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,0.9),0 0 30px rgba(0,0,0,0.8)}
 .header-address{font-size:.8rem;color:rgba(255,255,255,0.7);font-weight:300;letter-spacing:.06em}
 .gold-line{width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:12px auto 0}
 
@@ -152,662 +149,412 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);
 </div>
 
 <header class="header">
-  <div class="logo-wrap"><img class="logo-img" src="INSERISCI_QUI_IL_TUO_BASE64_DEL_LOGO" alt="LAPO Apartments"></div>
-  <div class="header-eyebrow" data-i18n="eyebrow">Guida Ospiti</div>
-  <h1 data-i18n="headline">Benvenuti<br>a Milano</h1>
-  <div class="header-address">Via G.B. Pergolesi, 3 · Milano</div>
+  <div class="logo-wrap">
+    <img class="logo-img" src="logo.png" alt="LAPO Apartments logo">
+  </div>
+  <p class="header-eyebrow" data-i18n="eyebrow">Guida Ospiti</p>
+  <h1 data-i18n="title">LAPO Apartments</h1>
+  <p class="header-address" data-i18n="address">Via Roma 1, Milano</p>
   <div class="gold-line"></div>
 </header>
 
 <div class="intro-strip">
-  <i class="fas fa-map-signs"></i>
-  <span data-i18n="intro">Top attrazioni e come raggiungerle con i mezzi pubblici. Tocca una sezione per espanderla.</span>
+  <i class="fas fa-circle-info"></i>
+  <span data-i18n="intro">Benvenuto! Qui trovi tutto ciò che ti serve per un soggiorno perfetto.</span>
 </div>
 
-<div class="container">
+<div class="container" id="main-container">
 
-<div class="section-card" id="card-duomo">
-  <div class="section-header" onclick="toggleCard('card-duomo')">
-    <div class="section-icon" style="background:linear-gradient(135deg,#D93025,#9B1515)"><i class="fas fa-place-of-worship"></i></div>
-    <div class="section-meta">
-      <div class="section-title" data-i18n="d_title">Duomo & Centro Storico</div>
-      <div class="section-subtitle" data-i18n="d_sub">Piazza Duomo · Castello Sforzesco · Teatro alla Scala</div>
+  <!-- CARD: CHECK-IN / CHECK-OUT -->
+  <div class="section-card" id="card-checkin">
+    <div class="section-header" onclick="toggleCard('card-checkin')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#C9A84C,#9A7A35)">
+        <i class="fas fa-key"></i>
+      </div>
+      <div class="section-meta">
+        <div class="section-title" data-i18n="checkinTitle">Check-in &amp; Check-out</div>
+        <div class="section-subtitle" data-i18n="checkinSub">Orari e accesso all'appartamento</div>
+      </div>
+      <div class="section-toggle"><i class="fas fa-chevron-down"></i></div>
     </div>
-    <div class="section-toggle"><i class="fas fa-chevron-down"></i></div>
+    <div class="section-body">
+      <div class="section-body-inner">
+        <div class="highlights-grid" style="margin-top:16px">
+          <div class="highlight-item">
+            <strong data-i18n="checkinLabel">Check-in</strong>
+            <span data-i18n="checkinTime">dalle 15:00</span>
+          </div>
+          <div class="highlight-item">
+            <strong data-i18n="checkoutLabel">Check-out</strong>
+            <span data-i18n="checkoutTime">entro le 11:00</span>
+          </div>
+          <div class="highlight-item">
+            <strong data-i18n="accessLabel">Accesso</strong>
+            <span data-i18n="accessDesc">Codice digitale</span>
+          </div>
+          <div class="highlight-item">
+            <strong data-i18n="wifiLabel">Wi-Fi</strong>
+            <span data-i18n="wifiDesc">LAPO_Guest · lapo2024</span>
+          </div>
+        </div>
+        <div class="tip-box" style="margin-top:16px">
+          <div class="tip-box-title" data-i18n="tipsTitle">Note utili</div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-lock"></i></div>
+            <span data-i18n="tipKey">Il codice della serratura ti è stato inviato via email 24h prima dell'arrivo.</span>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-suitcase"></i></div>
+            <span data-i18n="tipLuggage">Per deposito bagagli anticipato o ritardato contatta l'host via WhatsApp.</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="section-body"><div class="section-body-inner">
-    <div class="transport-block">
-      <div class="block-label" data-i18n="how_arrive">Come arrivare</div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot" style="background:#D93025"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-m1">M1 Rossa</span> <span data-i18n="d_m1_label">— Opzione consigliata</span></div>
-          <div class="step-desc" data-i18n="d_m1_desc">Fermata <strong>Loreto M1+M2</strong> a 2 min a piedi → <strong>M1 Rossa</strong> dir. <strong>Bisceglie/Rho Fiera</strong> → scendi a <strong>Duomo</strong> (5 fermate, ~10 min). Uscita diretta su Piazza Duomo.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot" style="background:#F5C400"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-m3">M3 Gialla</span> <span data-i18n="d_m3_label">— Alternativa via Centrale</span></div>
-          <div class="step-desc" data-i18n="d_m3_desc">Da Loreto <strong>M2</strong> una fermata fino a <strong>Caiazzo</strong>, poi Tram 9 verso <strong>Centrale FS</strong> → <strong>M3 Gialla</strong> dir. <strong>San Donato</strong> → scendi a <strong>Duomo</strong> (4 fermate).</div>
-        </div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="transport-block">
-      <div class="block-label" data-i18n="how_move">Come spostarsi nella zona</div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="d_s1_title">Duomo → Castello Sforzesco</div>
-          <div class="step-desc" data-i18n="d_s1_desc">A piedi lungo Via Dante (15 min) oppure <span class="badge badge-m1">M1</span> una fermata fino a <strong>Cairoli</strong>. Parco ad accesso libero, musei a pagamento. Nelle vicinanze: Ultima Cena di Leonardo (prenotazione obbligatoria).</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="d_s2_title">Duomo → Piazza della Scala</div>
-          <div class="step-desc" data-i18n="d_s2_desc">5 minuti a piedi attraversando la <strong>Galleria Vittorio Emanuele II</strong>. Tradizione milanese: ruotare il tacco sul mosaico del toro per portare fortuna. Museo del Teatro alla Scala aperto tutti i giorni.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="d_s3_title">Shopping: Quadrilatero della Moda</div>
-          <div class="step-desc" data-i18n="d_s3_desc"><span class="badge badge-m3">M3</span> fermata <strong>Montenapoleone</strong> (1 fermata da Duomo). Via Montenapoleone, Via della Spiga: le griffe internazionali nel cuore di Milano.</div>
-        </div>
-      </div>
-    </div>
-    <div class="highlights-grid">
-      <div class="highlight-item"><strong data-i18n="tip">Da non perdere</strong><span data-i18n="d_h1">Terrazza del Duomo al tramonto</span></div>
-      <div class="highlight-item"><strong data-i18n="advice">Consiglio</strong><span data-i18n="d_h2">Prenotazione online consigliata</span></div>
-      <div class="highlight-item"><strong data-i18n="d_h3_label">Galleria V.E. II</strong><span data-i18n="d_h3">Aperta 24h, caffe storici</span></div>
-      <div class="highlight-item"><strong data-i18n="d_h4_label">Last Supper</strong><span data-i18n="d_h4">Prenotare mesi prima!</span></div>
-    </div>
-    <a href="https://www.google.com/maps/dir/?api=1&origin=Via+Pergolesi+3+Milano&destination=Piazza+del+Duomo+Milano&travelmode=transit" class="btn-map" target="_blank"><i class="fas fa-route"></i> <span data-i18n="d_btn">Portami al Duomo</span></a>
-  </div></div>
-</div>
 
-<div class="section-card" id="card-gae">
-  <div class="section-header" onclick="toggleCard('card-gae')">
-    <div class="section-icon" style="background:linear-gradient(135deg,#00A651,#007A3D)"><i class="fas fa-city"></i></div>
-    <div class="section-meta">
-      <div class="section-title" data-i18n="g_title">Gae Aulenti & Isola</div>
-      <div class="section-subtitle" data-i18n="g_sub">Corso Como · Corso Garibaldi · Bosco Verticale</div>
+  <!-- CARD: COME ARRIVARE -->
+  <div class="section-card" id="card-transport">
+    <div class="section-header" onclick="toggleCard('card-transport')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#2C3E52,#1E2B3A)">
+        <i class="fas fa-train-subway"></i>
+      </div>
+      <div class="section-meta">
+        <div class="section-title" data-i18n="transportTitle">Come Arrivare</div>
+        <div class="section-subtitle" data-i18n="transportSub">Mezzi pubblici e taxi dall'aeroporto</div>
+      </div>
+      <div class="section-toggle"><i class="fas fa-chevron-down"></i></div>
     </div>
-    <div class="section-toggle"><i class="fas fa-chevron-down"></i></div>
-  </div>
-  <div class="section-body"><div class="section-body-inner">
-    <div class="transport-block">
-      <div class="block-label" data-i18n="how_arrive">Come arrivare</div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot" style="background:#00A651"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-m2">M2 Verde</span> <span data-i18n="g_m2_label">— Opzione principale</span></div>
-          <div class="step-desc" data-i18n="g_m2_desc">Da <strong>Loreto M2</strong> (2 min a piedi) → dir. <strong>Abbiategrasso</strong> → scendi a <strong>Garibaldi FS</strong> (2 fermate, ~5 min). Uscita su Piazza Gae Aulenti. Totale: ~10 minuti.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-tram">Tram 9</span> <span data-i18n="g_tram_label">— Alternativa panoramica</span></div>
-          <div class="step-desc" data-i18n="g_tram_desc">Il Tram 9 da Loreto percorre Viale Monza verso Centrale poi Garibaldi. Piu lento ma nessun cambio, ottimo per scoprire il quartiere.</div>
-        </div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="transport-block">
-      <div class="block-label" data-i18n="how_move">Come spostarsi nella zona</div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="g_s1_title">Gae Aulenti → Corso Como</div>
-          <div class="step-desc" data-i18n="g_s1_desc">3 minuti a piedi. Un concept store iconico con ristorante e galleria d'arte nel cortile — l'indirizzo piu trendy di Milano.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="g_s2_title">Garibaldi → Corso Garibaldi</div>
-          <div class="step-desc" data-i18n="g_s2_desc">A piedi 5 min verso sud. Street food, negozi indipendenti, caffe specialty. La strada arriva fino a Brera, il quartiere degli artisti con musei e gallerie.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="g_s3_title">Quartiere Isola</div>
-          <div class="step-desc" data-i18n="g_s3_desc">Dal portale di Gae Aulenti, ponte pedonale verso nord (10 min a piedi). Il quartiere creativo di Milano: murales, mercatini vintage, aperitivi nei locali locali. M5 <strong>Isola</strong> per tornare.</div>
-        </div>
-      </div>
-    </div>
-    <div class="highlights-grid">
-      <div class="highlight-item"><strong data-i18n="g_h1_l">Bosco Verticale</strong><span data-i18n="g_h1">Foto migliori dalla piazza, sera illuminata</span></div>
-      <div class="highlight-item"><strong data-i18n="g_h2_l">Aperitivo</strong><span data-i18n="g_h2">Isola: numerosi locali per l'happy hour</span></div>
-      <div class="highlight-item"><strong data-i18n="g_h3_l">Corso Como</strong><span data-i18n="g_h3">Shopping alternativo e design</span></div>
-      <div class="highlight-item"><strong data-i18n="g_h4_l">Brera</strong><span data-i18n="g_h4">Pinacoteca di Brera, arte rinascimentale</span></div>
-    </div>
-    <a href="https://www.google.com/maps/dir/?api=1&origin=Via+Pergolesi+3+Milano&destination=Piazza+Gae+Aulenti+Milano&travelmode=transit" class="btn-map" target="_blank"><i class="fas fa-route"></i> <span data-i18n="g_btn">Portami a Gae Aulenti</span></a>
-  </div></div>
-</div>
+    <div class="section-body">
+      <div class="section-body-inner">
 
-<div class="section-card" id="card-cenisio">
-  <div class="section-header" onclick="toggleCard('card-cenisio')">
-    <div class="section-icon" style="background:linear-gradient(135deg,#9B8EC4,#6A5BA0)"><i class="fas fa-torii-gate"></i></div>
-    <div class="section-meta">
-      <div class="section-title" data-i18n="c_title">Cenisio, Sarpi & Sempione</div>
-      <div class="section-subtitle" data-i18n="c_sub">Chinatown · Cimitero Monumentale · Arco della Pace</div>
-    </div>
-    <div class="section-toggle"><i class="fas fa-chevron-down"></i></div>
-  </div>
-  <div class="section-body"><div class="section-body-inner">
-    <div class="transport-block">
-      <div class="block-label" data-i18n="how_arrive">Come arrivare</div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot" style="background:#00A651"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-m2">M2 Verde</span> <span data-i18n="c_m2_label">cambio M5 a Garibaldi</span></div>
-          <div class="step-desc" data-i18n="c_m2_desc">Da <strong>Loreto M2</strong> (2 min a piedi) → dir. <strong>Abbiategrasso</strong> → scendi a <strong>Garibaldi FS</strong> (2 fermate). Cambio su <span class="badge badge-m5">M5 Lilla</span>.</div>
+        <div class="transport-block">
+          <div class="block-label" data-i18n="fromMalpensa">Da Malpensa (MXP)</div>
+          <div class="transport-step">
+            <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+            <div class="step-content">
+              <div class="step-title">Malpensa Express <span class="badge badge-m2">Treno</span></div>
+              <div class="step-desc">Ogni 30 min → <strong>Cadorna</strong> o <strong>Centrale</strong> · ~50 min</div>
+            </div>
+          </div>
+          <div class="transport-step">
+            <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+            <div class="step-content">
+              <div class="step-title">Metro <span class="badge badge-m2">M2</span></div>
+              <div class="step-desc">Da Cadorna → <strong>Stazione più vicina</strong> · ~5 min a piedi</div>
+            </div>
+          </div>
+          <div class="transport-step">
+            <div class="step-line"><div class="step-dot"></div></div>
+            <div class="step-content">
+              <div class="step-title">Taxi / NCC</div>
+              <div class="step-desc">Tariffa fissa aeroporto ~<strong>€95–110</strong> · ~45 min</div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot" style="background:#9B8EC4"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-m5">M5 Lilla</span> <span data-i18n="c_m5_label">— Per Monumentale e Cenisio</span></div>
-          <div class="step-desc" data-i18n="c_m5_desc">Da <strong>Garibaldi M5</strong> → dir. <strong>Bignami</strong> → <strong>Monumentale</strong> per il cimitero, o <strong>Cenisio</strong> per Chinatown (2 fermate). Totale: ~18 min.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-tram">Tram 1</span> <span data-i18n="c_tram_label">— Per il Parco Sempione</span></div>
-          <div class="step-desc" data-i18n="c_tram_desc">Da Loreto il Tram 1 percorre Corso Sempione fino all'Arco della Pace. Piu lento ma senza cambi, ottimo per scoprire i quartieri.</div>
-        </div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="transport-block">
-      <div class="block-label" data-i18n="how_move">Come spostarsi nella zona</div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="c_s1_title">Cenisio → Via Paolo Sarpi (Chinatown)</div>
-          <div class="step-desc" data-i18n="c_s1_desc">5 minuti a piedi verso ovest. Ristoranti con cucina asiatica autentica, negozi di prodotti orientali, street food, mercato storico il sabato mattina.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="c_s2_title">M5 Monumentale → Cimitero Monumentale</div>
-          <div class="step-desc" data-i18n="c_s2_desc">3 minuti a piedi dall'uscita. Uno dei cimiteri piu belli d'Europa con sculture liberty e mausolei d'autore. Ingresso gratuito, aperto tutti i giorni tranne il lunedi (8-18).</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="c_s3_title">Arco della Pace → Parco Sempione</div>
-          <div class="step-desc" data-i18n="c_s3_desc">Da Cenisio M5, a piedi 15 min o <span class="badge badge-m5">M5</span> fino a <strong>Domodossola</strong>. Il grande parco di Milano: lago, jogging, ciclopedonale, di fronte al Castello Sforzesco.</div>
-        </div>
-      </div>
-    </div>
-    <div class="highlights-grid">
-      <div class="highlight-item"><strong data-i18n="c_h1_l">Chinatown</strong><span data-i18n="c_h1">Ottima cucina asiatica autentica</span></div>
-      <div class="highlight-item"><strong data-i18n="c_h2_l">Cimitero</strong><span data-i18n="c_h2">Ingresso gratuito, arte liberty</span></div>
-      <div class="highlight-item"><strong data-i18n="c_h3_l">Parco Sempione</strong><span data-i18n="c_h3">Picnic e relax, aperto sempre</span></div>
-      <div class="highlight-item"><strong data-i18n="c_h4_l">Arco della Pace</strong><span data-i18n="c_h4">Foto migliori all'alba o tramonto</span></div>
-    </div>
-    <a href="https://www.google.com/maps/dir/?api=1&origin=Via+Pergolesi+3+Milano&destination=Via+Paolo+Sarpi+Milano&travelmode=transit" class="btn-map" target="_blank"><i class="fas fa-route"></i> <span data-i18n="c_btn">Portami a Sarpi / Cenisio</span></a>
-  </div></div>
-</div>
 
-<div class="section-card" id="card-navigli">
-  <div class="section-header" onclick="toggleCard('card-navigli')">
-    <div class="section-icon" style="background:linear-gradient(135deg,#00A651,#007A3D)"><i class="fas fa-water"></i></div>
-    <div class="section-meta">
-      <div class="section-title" data-i18n="n_title">Navigli</div>
-      <div class="section-subtitle" data-i18n="n_sub">Darsena · Vita notturna · Locali sul canale</div>
-    </div>
-    <div class="section-toggle"><i class="fas fa-chevron-down"></i></div>
-  </div>
-  <div class="section-body"><div class="section-body-inner">
-    <div class="transport-block">
-      <div class="block-label" data-i18n="how_arrive">Come arrivare</div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot" style="background:#00A651"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-m2">M2 Verde</span> <span data-i18n="n_m2_label">— Opzione diretta</span></div>
-          <div class="step-desc" data-i18n="n_m2_desc">Da <strong>Loreto M2</strong> (2 min a piedi) → dir. <strong>Abbiategrasso/Assago</strong> → scendi a <strong>Porta Genova FS</strong> (8 fermate, ~17 min). Uscita direttamente sui Navigli. Totale: ~22 min.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div></div>
-        <div class="step-content">
-          <div class="step-title"><span class="badge badge-tram">Tram 3</span> <span data-i18n="n_tram_label">— Ritorno serale</span></div>
-          <div class="step-desc" data-i18n="n_tram_desc">Quando la metro chiude (~1:30), il Tram 3 notturno da Porta Genova percorre Col di Lana verso Centrale. Ottimo per rientrare dopo la serata.</div>
-        </div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="transport-block">
-      <div class="block-label" data-i18n="how_move">Come spostarsi nella zona</div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="n_s1_title">Porta Genova → Naviglio Grande</div>
-          <div class="step-desc" data-i18n="n_s1_desc">3 minuti a piedi. Osterie storiche, numerosi locali per l'aperitivo, gallerie d'arte sul lungocanale. Rito milanese ogni sera, peak giovedi e sabato dalle 19:00.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="n_s2_title">Naviglio Grande → Darsena</div>
-          <div class="step-desc" data-i18n="n_s2_desc">10 minuti a piedi verso nord lungo il canale. Porto riqualificato, mercato del giovedi mattina, noleggio bici e kayak in estate.</div>
-        </div>
-      </div>
-      <div class="transport-step">
-        <div class="step-line"><div class="step-dot"></div></div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="n_s3_title">Vicolo dei Lavandai & Naviglio Pavese</div>
-          <div class="step-desc" data-i18n="n_s3_desc">Il Vicolo dei Lavandai e il lavatoio medievale piu fotografato di Milano, a 5 min da Porta Genova. Il Naviglio Pavese verso sud offre osterie piu tranquille e meno turistiche.</div>
-        </div>
-      </div>
-    </div>
-    <div class="highlights-grid">
-      <div class="highlight-item"><strong data-i18n="n_h1_l">Orario top</strong><span data-i18n="n_h1">Giovedi e sabato, dalle 19:00</span></div>
-      <div class="highlight-item"><strong data-i18n="n_h2_l">Aperitivo</strong><span data-i18n="n_h2">Molti locali storici sul lungocanale</span></div>
-      <div class="highlight-item"><strong data-i18n="n_h3_l">Mercatino</strong><span data-i18n="n_h3">Ultima domenica del mese: antiquariato</span></div>
-      <div class="highlight-item"><strong data-i18n="n_h4_l">Notte tardi</strong><span data-i18n="n_h4">Tram notturno per il rientro</span></div>
-    </div>
-    <a href="https://www.google.com/maps/dir/?api=1&origin=Via+Pergolesi+3+Milano&destination=Navigli+Milano&travelmode=transit" class="btn-map" target="_blank"><i class="fas fa-route"></i> <span data-i18n="n_btn">Portami ai Navigli</span></a>
-  </div></div>
-</div>
+        <div class="divider"></div>
 
-<div class="tip-box">
-  <div class="tip-box-title" data-i18n="tips_title">Consigli pratici</div>
-  <div class="tip-item">
-    <div class="tip-icon"><i class="fas fa-ticket-alt"></i></div>
-    <span data-i18n="tip1">Biglietto singolo ATM: <strong>€2,20</strong> · valido 90 min. App ufficiale ATM o carta contactless ai tornelli.</span>
-  </div>
-  <div class="tip-item">
-    <div class="tip-icon"><i class="fas fa-map-marker-alt"></i></div>
-    <span data-i18n="tip2">Fermata piu vicina: <strong>Loreto M1+M2</strong> a 2 min a piedi (uscita Piazza Loreto). Sia M1 Rossa che M2 Verde.</span>
-  </div>
-  <div class="tip-item">
-    <div class="tip-icon"><i class="fas fa-moon"></i></div>
-    <span data-i18n="tip3">Metro chiude ~<strong>1:30</strong> (ven-sab alle 2:30). Dopo: tram notturni o app di taxi.</span>
-  </div>
-  <div class="tip-item">
-    <div class="tip-icon"><i class="fas fa-bicycle"></i></div>
-    <span data-i18n="tip4"><strong>BikeMi</strong>: bici e e-bike in sharing in tutta la citta. Ideale per Sempione, Navigli e Brera.</span>
-  </div>
-</div>
+        <div class="transport-block">
+          <div class="block-label" data-i18n="fromLinate">Da Linate (LIN)</div>
+          <div class="transport-step">
+            <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+            <div class="step-content">
+              <div class="step-title">Metro <span class="badge badge-m4">M4</span></div>
+              <div class="step-desc">Diretto → centro · ~15 min</div>
+            </div>
+          </div>
+          <div class="transport-step">
+            <div class="step-line"><div class="step-dot"></div></div>
+            <div class="step-content">
+              <div class="step-title">Taxi</div>
+              <div class="step-desc">~<strong>€25–35</strong> · ~20 min</div>
+            </div>
+          </div>
+        </div>
 
-</div><script>
-var T = {
+        <a href="https://maps.google.com" target="_blank" class="btn-map">
+          <i class="fas fa-map-location-dot"></i>
+          <span data-i18n="openMap">Apri in Google Maps</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD: REGOLE CASA -->
+  <div class="section-card" id="card-rules">
+    <div class="section-header" onclick="toggleCard('card-rules')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#c0392b,#922b21)">
+        <i class="fas fa-house-circle-check"></i>
+      </div>
+      <div class="section-meta">
+        <div class="section-title" data-i18n="rulesTitle">Regole della Casa</div>
+        <div class="section-subtitle" data-i18n="rulesSub">Per un soggiorno rispettoso</div>
+      </div>
+      <div class="section-toggle"><i class="fas fa-chevron-down"></i></div>
+    </div>
+    <div class="section-body">
+      <div class="section-body-inner">
+        <div class="tip-box" style="margin-top:16px">
+          <div class="tip-box-title" data-i18n="rulesBoxTitle">Da rispettare</div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-smoking-ban"></i></div>
+            <span data-i18n="ruleNoSmoke"><strong>Vietato fumare</strong> all'interno dell'appartamento.</span>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-paw"></i></div>
+            <span data-i18n="ruleNoPets"><strong>Animali domestici</strong> non ammessi senza accordo preventivo.</span>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-volume-xmark"></i></div>
+            <span data-i18n="ruleNoise"><strong>Silenzio</strong> dalle 23:00 alle 8:00. Rispetta i vicini.</span>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-people-group"></i></div>
+            <span data-i18n="ruleGuests"><strong>Ospiti extra</strong> non registrati non sono ammessi a pernottare.</span>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-recycle"></i></div>
+            <span data-i18n="ruleTrash"><strong>Differenziata:</strong> segui le istruzioni in cucina per i rifiuti.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD: QUARTIERE -->
+  <div class="section-card" id="card-area">
+    <div class="section-header" onclick="toggleCard('card-area')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#27ae60,#1e8449)">
+        <i class="fas fa-map-pin"></i>
+      </div>
+      <div class="section-meta">
+        <div class="section-title" data-i18n="areaTitle">Il Quartiere</div>
+        <div class="section-subtitle" data-i18n="areaSub">Supermercati, ristoranti e attrazioni</div>
+      </div>
+      <div class="section-toggle"><i class="fas fa-chevron-down"></i></div>
+    </div>
+    <div class="section-body">
+      <div class="section-body-inner">
+        <div class="highlights-grid" style="margin-top:16px">
+          <div class="highlight-item">
+            <strong data-i18n="supermarket">Supermercato</strong>
+            Esselunga · 5 min a piedi
+          </div>
+          <div class="highlight-item">
+            <strong data-i18n="pharmacy">Farmacia</strong>
+            Farmacia Centrale · 3 min
+          </div>
+          <div class="highlight-item">
+            <strong data-i18n="restaurant">Ristorante</strong>
+            Osteria del Borgo · 2 min
+          </div>
+          <div class="highlight-item">
+            <strong data-i18n="cafe">Caffè</strong>
+            Bar Magenta · 1 min
+          </div>
+        </div>
+        <div class="tip-box" style="margin-top:16px">
+          <div class="tip-box-title" data-i18n="topSights">Da non perdere</div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-landmark"></i></div>
+            <span data-i18n="sight1"><strong>Duomo di Milano</strong> · 10 min in metro</span>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-palette"></i></div>
+            <span data-i18n="sight2"><strong>Pinacoteca di Brera</strong> · 15 min a piedi</span>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon"><i class="fas fa-utensils"></i></div>
+            <span data-i18n="sight3"><strong>Navigli</strong> · 20 min a piedi, aperitivo imperdibile</span>
+          </div>
+        </div>
+        <a href="https://maps.google.com" target="_blank" class="btn-map">
+          <i class="fas fa-map-location-dot"></i>
+          <span data-i18n="exploreArea">Esplora il quartiere</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ── Traduzioni ──────────────────────────────────────────────────────────────
+const i18n = {
   it: {
-    eyebrow:"Guida Ospiti", headline:"Benvenuti<br>a Milano",
-    hostLabel:"Il tuo Host", hostSub:"Disponibile per qualsiasi necessità", callHost:"Chiama",
-    intro:"Top attrazioni e come raggiungerle con i mezzi pubblici. Tocca una sezione per espanderla.",
-    how_arrive:"Come arrivare", how_move:"Come spostarsi nella zona",
-    tip:"Da non perdere", advice:"Consiglio", tips_title:"Consigli pratici",
-    d_title:"Duomo & Centro Storico", d_sub:"Piazza Duomo · Castello Sforzesco · Teatro alla Scala",
-    d_m1_label:"— Opzione consigliata",
-    d_m1_desc:"Fermata <strong>Loreto M1+M2</strong> a 2 min a piedi → <strong>M1 Rossa</strong> dir. <strong>Bisceglie/Rho Fiera</strong> → scendi a <strong>Duomo</strong> (5 fermate, ~10 min). Uscita diretta su Piazza Duomo.",
-    d_m3_label:"— Alternativa via Centrale",
-    d_m3_desc:"Da Loreto <strong>M2</strong> una fermata fino a <strong>Caiazzo</strong>, poi Tram 9 verso <strong>Centrale FS</strong> → <strong>M3 Gialla</strong> dir. <strong>San Donato</strong> → scendi a <strong>Duomo</strong> (4 fermate).",
-    d_s1_title:"Duomo → Castello Sforzesco",
-    d_s1_desc:"A piedi lungo Via Dante (15 min) oppure <span class='badge badge-m1'>M1</span> una fermata fino a <strong>Cairoli</strong>. Parco libero, musei a pagamento. Vicino: Ultima Cena di Leonardo (prenotazione obbligatoria).",
-    d_s2_title:"Duomo → Piazza della Scala",
-    d_s2_desc:"5 minuti a piedi attraversando la <strong>Galleria Vittorio Emanuele II</strong>. Tradizione: ruotare il tacco sul mosaico del toro per fortuna. Museo del Teatro alla Scala aperto ogni giorno.",
-    d_s3_title:"Shopping: Quadrilatero della Moda",
-    d_s3_desc:"<span class='badge badge-m3'>M3</span> fermata <strong>Montenapoleone</strong>. Via Montenapoleone e Via della Spiga: le griffe internazionali.",
-    d_h1:"Terrazza del Duomo al tramonto", d_h2:"Prenotazione online consigliata",
-    d_h3_label:"Galleria V.E. II", d_h3:"Aperta 24h, caffe storici",
-    d_h4_label:"Last Supper", d_h4:"Prenotare mesi prima!",
-    d_btn:"Portami al Duomo",
-    g_title:"Gae Aulenti & Isola", g_sub:"Corso Como · Corso Garibaldi · Bosco Verticale",
-    g_m2_label:"— Opzione principale",
-    g_m2_desc:"Da <strong>Loreto M2</strong> (2 min a piedi) → dir. <strong>Abbiategrasso</strong> → scendi a <strong>Garibaldi FS</strong> (2 fermate, ~5 min). Uscita su Piazza Gae Aulenti. Totale: ~10 min.",
-    g_tram_label:"— Alternativa panoramica",
-    g_tram_desc:"Il Tram 9 da Loreto percorre Viale Monza verso Centrale poi Garibaldi. Piu lento ma nessun cambio.",
-    g_s1_title:"Gae Aulenti → Corso Como",
-    g_s1_desc:"3 minuti a piedi. Un concept store iconico con ristorante e galleria d'arte nel cortile — l'indirizzo piu trendy di Milano.",
-    g_s2_title:"Garibaldi → Corso Garibaldi",
-    g_s2_desc:"A piedi 5 min verso sud. Street food, negozi indipendenti, caffe specialty. La strada arriva fino a Brera, il quartiere degli artisti.",
-    g_s3_title:"Quartiere Isola",
-    g_s3_desc:"Dal portale di Gae Aulenti, ponte pedonale verso nord (10 min). Murales, mercatini vintage, aperitivi. M5 <strong>Isola</strong> per tornare.",
-    g_h1_l:"Bosco Verticale", g_h1:"Foto migliori dalla piazza, sera illuminata",
-    g_h2_l:"Aperitivo", g_h2:"Isola: numerosi locali per l'happy hour",
-    g_h3_l:"Corso Como", g_h3:"Shopping alternativo e design",
-    g_h4_l:"Brera", g_h4:"Pinacoteca di Brera, arte rinascimentale",
-    g_btn:"Portami a Gae Aulenti",
-    c_title:"Cenisio, Sarpi & Sempione", c_sub:"Chinatown · Cimitero Monumentale · Arco della Pace",
-    c_m2_label:"cambio M5 a Garibaldi",
-    c_m2_desc:"Da <strong>Loreto M2</strong> (2 min a piedi) → dir. <strong>Abbiategrasso</strong> → scendi a <strong>Garibaldi FS</strong> (2 fermate). Cambio su <span class='badge badge-m5'>M5 Lilla</span>.",
-    c_m5_label:"— Per Monumentale e Cenisio",
-    c_m5_desc:"Da <strong>Garibaldi M5</strong> → dir. <strong>Bignami</strong> → <strong>Monumentale</strong> per il cimitero, o <strong>Cenisio</strong> per Chinatown. Totale: ~18 min.",
-    c_tram_label:"— Per il Parco Sempione",
-    c_tram_desc:"Da Loreto il Tram 1 percorre Corso Sempione fino all'Arco della Pace. Piu lento ma senza cambi.",
-    c_s1_title:"Cenisio → Via Paolo Sarpi (Chinatown)",
-    c_s1_desc:"5 min a piedi verso ovest. Cucina asiatica autentica, negozi orientali, street food, mercato storico il sabato mattina.",
-    c_s2_title:"M5 Monumentale → Cimitero Monumentale",
-    c_s2_desc:"3 min dall'uscita. Sculture liberty e mausolei d'autore. Ingresso gratuito, aperto tutti i giorni tranne lunedi (8–18).",
-    c_s3_title:"Arco della Pace → Parco Sempione",
-    c_s3_desc:"Da Cenisio M5, 15 min a piedi o <span class='badge badge-m5'>M5</span> fino a <strong>Domodossola</strong>. Lago, jogging, ciclopedonale, di fronte al Castello Sforzesco.",
-    c_h1_l:"Chinatown", c_h1:"Ottima cucina asiatica autentica",
-    c_h2_l:"Cimitero", c_h2:"Ingresso gratuito, arte liberty",
-    c_h3_l:"Parco Sempione", c_h3:"Picnic e relax, aperto sempre",
-    c_h4_l:"Arco della Pace", c_h4:"Foto all'alba o tramonto",
-    c_btn:"Portami a Sarpi / Cenisio",
-    n_title:"Navigli", n_sub:"Darsena · Vita notturna · Locali sul canale",
-    n_m2_label:"— Opzione diretta",
-    n_m2_desc:"Da <strong>Loreto M2</strong> (2 min a piedi) → dir. <strong>Abbiategrasso/Assago</strong> → scendi a <strong>Porta Genova FS</strong> (8 fermate, ~17 min). Uscita sui Navigli. Totale: ~22 min.",
-    n_tram_label:"— Ritorno serale",
-    n_tram_desc:"Quando la metro chiude (~1:30), il Tram 3 notturno da Porta Genova va verso Centrale. Ottimo per rientrare dopo la serata.",
-    n_s1_title:"Porta Genova → Naviglio Grande",
-    n_s1_desc:"3 min a piedi. Osterie storiche, numerosi locali per l'aperitivo, gallerie d'arte sul lungocanale. Peak giovedi e sabato dalle 19.",
-    n_s2_title:"Naviglio Grande → Darsena",
-    n_s2_desc:"10 min a piedi verso nord. Porto riqualificato, mercato del giovedi mattina, noleggio bici e kayak in estate.",
-    n_s3_title:"Vicolo dei Lavandai & Naviglio Pavese",
-    n_s3_desc:"Il Vicolo dei Lavandai e il lavatoio medievale piu fotografato di Milano, a 5 min da Porta Genova. Il Naviglio Pavese verso sud ha osterie piu tranquille.",
-    n_h1_l:"Orario top", n_h1:"Giovedi e sabato, dalle 19:00",
-    n_h2_l:"Aperitivo", n_h2:"Molti locali storici sul lungocanale",
-    n_h3_l:"Mercatino", n_h3:"Ultima domenica del mese: antiquariato",
-    n_h4_l:"Notte tardi", n_h4:"Tram notturno per il rientro",
-    n_btn:"Portami ai Navigli",
-    tips_title:"Consigli pratici",
-    tip1:"Biglietto singolo ATM: <strong>€2,20</strong> · valido 90 min. App ufficiale ATM o carta contactless ai tornelli.",
-    tip2:"Fermata piu vicina: <strong>Loreto M1+M2</strong> a 2 min a piedi (uscita Piazza Loreto). Sia M1 Rossa che M2 Verde.",
-    tip3:"Metro chiude ~<strong>1:30</strong> (ven-sab alle 2:30). Dopo: tram notturni o app di taxi.",
-    tip4:"<strong>BikeMi</strong>: bici e e-bike in sharing in tutta la citta. Ideale per Sempione, Navigli e Brera."
+    eyebrow:'Guida Ospiti', title:'LAPO Apartments', address:'Via Roma 1, Milano',
+    intro:'Benvenuto! Qui trovi tutto ciò che ti serve per un soggiorno perfetto.',
+    hostLabel:'Il tuo Host', callHost:'Chiama',
+    checkinTitle:'Check-in & Check-out', checkinSub:'Orari e accesso all\'appartamento',
+    checkinLabel:'Check-in', checkinTime:'dalle 15:00',
+    checkoutLabel:'Check-out', checkoutTime:'entro le 11:00',
+    accessLabel:'Accesso', accessDesc:'Codice digitale',
+    wifiLabel:'Wi-Fi', wifiDesc:'LAPO_Guest · lapo2024',
+    tipsTitle:'Note utili',
+    tipKey:'Il codice della serratura ti è stato inviato via email 24h prima dell\'arrivo.',
+    tipLuggage:'Per deposito bagagli anticipato o ritardato contatta l\'host via WhatsApp.',
+    transportTitle:'Come Arrivare', transportSub:'Mezzi pubblici e taxi dall\'aeroporto',
+    fromMalpensa:'Da Malpensa (MXP)', fromLinate:'Da Linate (LIN)',
+    openMap:'Apri in Google Maps',
+    rulesTitle:'Regole della Casa', rulesSub:'Per un soggiorno rispettoso',
+    rulesBoxTitle:'Da rispettare',
+    ruleNoSmoke:'<strong>Vietato fumare</strong> all\'interno dell\'appartamento.',
+    ruleNoPets:'<strong>Animali domestici</strong> non ammessi senza accordo preventivo.',
+    ruleNoise:'<strong>Silenzio</strong> dalle 23:00 alle 8:00. Rispetta i vicini.',
+    ruleGuests:'<strong>Ospiti extra</strong> non registrati non sono ammessi a pernottare.',
+    ruleTrash:'<strong>Differenziata:</strong> segui le istruzioni in cucina per i rifiuti.',
+    areaTitle:'Il Quartiere', areaSub:'Supermercati, ristoranti e attrazioni',
+    supermarket:'Supermercato', pharmacy:'Farmacia', restaurant:'Ristorante', cafe:'Caffè',
+    topSights:'Da non perdere',
+    sight1:'<strong>Duomo di Milano</strong> · 10 min in metro',
+    sight2:'<strong>Pinacoteca di Brera</strong> · 15 min a piedi',
+    sight3:'<strong>Navigli</strong> · 20 min a piedi, aperitivo imperdibile',
+    exploreArea:'Esplora il quartiere',
   },
   en: {
-    eyebrow:"Guest Guide", headline:"Welcome<br>to Milan",
-    hostLabel:"Your Host", hostSub:"Available for any need", callHost:"Call",
-    intro:"Top attractions and how to reach them by public transport. Tap a section to expand.",
-    how_arrive:"How to get there", how_move:"Getting around the area",
-    tip:"Don't miss", advice:"Tip", tips_title:"Practical tips",
-    d_title:"Duomo & Historic Centre", d_sub:"Piazza Duomo · Sforza Castle · La Scala Theatre",
-    d_m1_label:"— Recommended option",
-    d_m1_desc:"Walk 2 min to <strong>Loreto M1+M2</strong> → <strong>M1 Red</strong> towards <strong>Bisceglie/Rho Fiera</strong> → exit at <strong>Duomo</strong> (5 stops, ~10 min). Exit directly onto Piazza Duomo.",
-    d_m3_label:"— Alternative via Centrale",
-    d_m3_desc:"From Loreto take <strong>M2</strong> one stop to <strong>Caiazzo</strong>, then Tram 9 to <strong>Centrale FS</strong> → <strong>M3 Yellow</strong> towards <strong>San Donato</strong> → exit at <strong>Duomo</strong> (4 stops).",
-    d_s1_title:"Duomo → Sforza Castle",
-    d_s1_desc:"Walk along Via Dante (15 min) or <span class='badge badge-m1'>M1</span> one stop to <strong>Cairoli</strong>. Free park, paid museums. Nearby: Leonardo's Last Supper (booking required).",
-    d_s2_title:"Duomo → Piazza della Scala",
-    d_s2_desc:"5 min walk through <strong>Galleria Vittorio Emanuele II</strong>. Local tradition: spin your heel on the bull mosaic for good luck. La Scala Museum open daily.",
-    d_s3_title:"Shopping: Fashion District",
-    d_s3_desc:"<span class='badge badge-m3'>M3</span> stop <strong>Montenapoleone</strong>. Via Montenapoleone and Via della Spiga: the world's top fashion brands.",
-    d_h1:"Duomo rooftop at sunset", d_h2:"Online booking recommended",
-    d_h3_label:"Galleria V.E. II", d_h3:"Open 24h, historic cafes",
-    d_h4_label:"Last Supper", d_h4:"Book months in advance!",
-    d_btn:"Take me to the Duomo",
-    g_title:"Gae Aulenti & Isola", g_sub:"Corso Como · Corso Garibaldi · Vertical Forest",
-    g_m2_label:"— Main option",
-    g_m2_desc:"Walk 2 min to <strong>Loreto M2</strong> → towards <strong>Abbiategrasso</strong> → exit at <strong>Garibaldi FS</strong> (2 stops, ~5 min). Exit onto Piazza Gae Aulenti. Total: ~10 min.",
-    g_tram_label:"— Scenic alternative",
-    g_tram_desc:"Tram 9 from Loreto runs along Viale Monza to Centrale then Garibaldi. Slower but no transfers.",
-    g_s1_title:"Gae Aulenti → Corso Como",
-    g_s1_desc:"3 min walk. An iconic concept store with restaurant and art gallery in the courtyard — Milan's trendiest address.",
-    g_s2_title:"Garibaldi → Corso Garibaldi",
-    g_s2_desc:"5 min walk south. Street food, independent shops, specialty coffee. The street leads to Brera, Milan's artist neighbourhood.",
-    g_s3_title:"Isola District",
-    g_s3_desc:"From Gae Aulenti, cross the pedestrian bridge north (10 min). Street art, vintage markets, aperitivo bars. M5 <strong>Isola</strong> to return.",
-    g_h1_l:"Vertical Forest", g_h1:"Best photos from the square, lit at night",
-    g_h2_l:"Aperitivo", g_h2:"Isola: plenty of aperitivo bars",
-    g_h3_l:"Corso Como", g_h3:"Alternative shopping & design",
-    g_h4_l:"Brera", g_h4:"Pinacoteca di Brera, Renaissance art",
-    g_btn:"Take me to Gae Aulenti",
-    c_title:"Cenisio, Sarpi & Sempione", c_sub:"Chinatown · Monumental Cemetery · Arch of Peace",
-    c_m2_label:"change to M5 at Garibaldi",
-    c_m2_desc:"Walk 2 min to <strong>Loreto M2</strong> → towards <strong>Abbiategrasso</strong> → exit at <strong>Garibaldi FS</strong> (2 stops). Change to <span class='badge badge-m5'>M5 Purple</span>.",
-    c_m5_label:"— For Monumentale and Cenisio",
-    c_m5_desc:"From <strong>Garibaldi M5</strong> → towards <strong>Bignami</strong> → <strong>Monumentale</strong> for the cemetery, or <strong>Cenisio</strong> for Chinatown. Total: ~18 min.",
-    c_tram_label:"— For Parco Sempione",
-    c_tram_desc:"Tram 1 from Loreto runs along Corso Sempione to the Arch of Peace. Slower but direct.",
-    c_s1_title:"Cenisio → Via Paolo Sarpi (Chinatown)",
-    c_s1_desc:"5 min walk west. Authentic Asian cuisine, Eastern grocery shops, street food, historic Saturday morning market.",
-    c_s2_title:"M5 Monumentale → Monumental Cemetery",
-    c_s2_desc:"3 min from the exit. Art Nouveau sculptures and notable mausoleums. Free entry, open daily except Monday (8–18).",
-    c_s3_title:"Arch of Peace → Parco Sempione",
-    c_s3_desc:"From Cenisio M5, 15 min walk or <span class='badge badge-m5'>M5</span> to <strong>Domodossola</strong>. Lake, jogging, cycling, next to Sforza Castle.",
-    c_h1_l:"Chinatown", c_h1:"Authentic Asian cuisine in the area",
-    c_h2_l:"Cemetery", c_h2:"Free entry, stunning Art Nouveau",
-    c_h3_l:"Parco Sempione", c_h3:"Picnic & relax, always open",
-    c_h4_l:"Arch of Peace", c_h4:"Best photos at sunrise or sunset",
-    c_btn:"Take me to Sarpi / Cenisio",
-    n_title:"Navigli", n_sub:"Darsena · Nightlife · Canal-side bars",
-    n_m2_label:"— Direct metro option",
-    n_m2_desc:"Walk 2 min to <strong>Loreto M2</strong> → towards <strong>Abbiategrasso/Assago</strong> → exit at <strong>Porta Genova FS</strong> (8 stops, ~17 min). Exit directly onto the Navigli. Total: ~22 min.",
-    n_tram_label:"— Late-night return",
-    n_tram_desc:"After ~1:30am, Night Tram 3 from Porta Genova runs towards Centrale. Perfect for returning after a night out.",
-    n_s1_title:"Porta Genova → Naviglio Grande",
-    n_s1_desc:"3 min walk. Historic trattorias, aperitivo bars and art galleries line the canal. Milan ritual every evening, peak Thursday and Saturday from 7pm.",
-    n_s2_title:"Naviglio Grande → Darsena",
-    n_s2_desc:"10 min north along the canal. Redeveloped harbour area, Thursday morning market, bike and kayak rental in summer.",
-    n_s3_title:"Vicolo dei Lavandai & Naviglio Pavese",
-    n_s3_desc:"Vicolo dei Lavandai is Milan's most photographed medieval washhouse, 5 min from Porta Genova. Naviglio Pavese south has quieter, less touristy spots.",
-    n_h1_l:"Best time", n_h1:"Thursday & Saturday from 7pm",
-    n_h2_l:"Aperitivo", n_h2:"Many historic bars along the canal",
-    n_h3_l:"Market", n_h3:"Last Sunday of month: antiques",
-    n_h4_l:"Late night", n_h4:"Night tram for the return trip",
-    n_btn:"Take me to the Navigli",
-    tips_title:"Practical tips",
-    tip1:"Single ATM ticket: <strong>€2.20</strong> · valid 90 min. Official ATM app or contactless card at the turnstiles.",
-    tip2:"Nearest stop: <strong>Loreto M1+M2</strong>, 2 min walk (Piazza Loreto exit). Both M1 Red and M2 Green.",
-    tip3:"Metro closes ~<strong>1:30am</strong> (Fri-Sat 2:30am). After: night trams or taxi apps.",
-    tip4:"<strong>BikeMi</strong>: bike-sharing throughout the city. Ideal for Sempione, Navigli and Brera."
+    eyebrow:'Guest Guide', title:'LAPO Apartments', address:'Via Roma 1, Milan',
+    intro:'Welcome! Here you\'ll find everything you need for a perfect stay.',
+    hostLabel:'Your Host', callHost:'Call',
+    checkinTitle:'Check-in & Check-out', checkinSub:'Times and apartment access',
+    checkinLabel:'Check-in', checkinTime:'from 3:00 PM',
+    checkoutLabel:'Check-out', checkoutTime:'by 11:00 AM',
+    accessLabel:'Access', accessDesc:'Digital code',
+    wifiLabel:'Wi-Fi', wifiDesc:'LAPO_Guest · lapo2024',
+    tipsTitle:'Useful notes',
+    tipKey:'The door code was sent to your email 24h before arrival.',
+    tipLuggage:'For early or late luggage storage contact the host via WhatsApp.',
+    transportTitle:'Getting Here', transportSub:'Public transport and taxis from the airport',
+    fromMalpensa:'From Malpensa (MXP)', fromLinate:'From Linate (LIN)',
+    openMap:'Open in Google Maps',
+    rulesTitle:'House Rules', rulesSub:'For a respectful stay',
+    rulesBoxTitle:'Please respect',
+    ruleNoSmoke:'<strong>No smoking</strong> inside the apartment.',
+    ruleNoPets:'<strong>Pets</strong> not allowed without prior agreement.',
+    ruleNoise:'<strong>Quiet hours</strong> from 11 PM to 8 AM. Respect your neighbours.',
+    ruleGuests:'<strong>Unregistered extra guests</strong> are not allowed to stay overnight.',
+    ruleTrash:'<strong>Recycling:</strong> follow the instructions in the kitchen.',
+    areaTitle:'The Neighbourhood', areaSub:'Supermarkets, restaurants and attractions',
+    supermarket:'Supermarket', pharmacy:'Pharmacy', restaurant:'Restaurant', cafe:'Café',
+    topSights:'Must-see',
+    sight1:'<strong>Milan Cathedral</strong> · 10 min by metro',
+    sight2:'<strong>Pinacoteca di Brera</strong> · 15 min walk',
+    sight3:'<strong>Navigli</strong> · 20 min walk, unmissable aperitivo',
+    exploreArea:'Explore the neighbourhood',
   },
   zh: {
-    eyebrow:" \u4F4F\u5BA2\u6307\u5357", headline:"欢运来到<br>米 \u5170",
-    hostLabel:"我的技术户", hostSub:"随时为您服务", callHost:"打电话",
-    intro:"主要林点及从这里出发的公共交通路线。点击各区域展开详情。",
-    how_arrive:"如何到达", how_move:"在该区域内游览",
-    tip:"必看", advice:"小贴察", tips_title:"实用建议",
-    d_title:"米 \u5170大教堂与历史中心",
-    d_sub:"大教堂广坦 · 斯福姘敏城场 · 斯卡拉歌划院",
-    d_m1_label:"— 推荐线路",
-    d_m1_desc:"步行2分钟至 <strong>Loreto M1+M2</strong> 站 → 乘坪 <strong>M1红线</strong> 方向 <strong>Bisceglie/Rho Fiera</strong> → 在 <strong>Duomo</strong> 下车（5站，约10分钟）。",
-    d_m3_label:"— 经中央车站的备选路线",
-    d_m3_desc:"从Loreto乘 <strong>M2</strong> 一站至 <strong>Caiazzo</strong>，再乘9号电车至 <strong>Centrale FS</strong> → <strong>M3黄线</strong> 方向 <strong>San Donato</strong> → 在 <strong>Duomo</strong> 下车（4站）。",
-    d_s1_title:"大教堂 → 斯福姘敏城场",
-    d_s1_desc:"步行Via Dante（15分钟）或乘 <span class='badge badge-m1'>M1</span> 一站至 <strong>Cairoli</strong>。公园免费进入，博物馆收费。附近：赟•••末塞《最后的晚饼》（需提前预订）。",
-    d_s2_title:"大教堂 → 斯卡拉廣坦",
-    d_s2_desc:"竫过 <strong>àc;首依拉二世长弹</strong> 步行5分钟。米 \u5170;传统：用脱根旋转马​​马克赆序的公牛图案秘求好过。斯卡拉歌划院博物馆每日开放。",
-    d_s3_title:"购物：时装四角区",
-    d_s3_desc:"乘 <span class='badge badge-m3'>M3</span> 至 <strong>Montenapoleone</strong> 站。蛃特拉&#\uFFFD\uFFFD;破仱大街与斯比加大街：全球體级时装品牌兴俺。",
-    d_h1:"大教堂学顶日近时分",
-    d_h2:"建议提前网上预订",
-    d_h3_label:"àc;首依拉二世长弹",
-    d_h3:"全天开放，历史Ȥc;啊",
-    d_h4_label:"最后的晚饼",
-    d_h4:"需提前数月预订！",
-    d_btn:"带我去大教堂",
-    g_title:"盗·塃 \u4F26;提广坦与伸索拉区",
-    g_sub:"科莫大街 · 加里 ripple;第大街 · 垂直森林",
-    g_m2_label:"— 主要线路",
-    g_m2_desc:"步行2分钟至 <strong>Loreto M2</strong> 站 → 方向 <strong>Abbiategrasso</strong> → 在 <strong>Garibaldi FS</strong> 下车（2站，约5分钟）。全程约10分钟。",
-    g_tram_label:"— 风景备选路线",
-    g_tram_desc:"从Loreto乘9号电车，歩Viale Monza经中央车站至Garibaldi。较 \uFFFD;但无需换乘。",
-    g_s1_title:"盗·塃 \u4F26;提广坦 → 科莫大街",
-    g_s1_desc:"步行3分钟。一家标志性概念店，内设饺化和广堬画惑。",
-    g_s2_title:"Garibaldi → 加里 ripple;第大街",
-    g_s2_desc:"向南步行5分钟。蠩头胚饼、特色Ȥc;啊。大街延伊至布`拉，米 \u5170;的腹术家聚集地。",
-    g_s3_title:"伸索拉区",
-    g_s3_desc:"从盗·塃 \u4F26;提广坦过人行天桥向北（10分钟）。蚝境夫术、绩種阴販市場、开胞酷卟。M5 <strong>Isola</strong> 站返程。",
-    g_h1_l:"垂直森林", g_h1:"广坦拨设最亵，夜期満湾联清",
-    g_h2_l:"开胞酷卟", g_h2:"伸索拉：儀多开胞酷卟化可选",
-    g_h3_l:"科莫大街", g_h3:"时威进则​​设计购物",
-    g_h4_l:"布`拉", g_h4:"布`拉画惑馆，文艺巧决术术术",
-    g_btn:"带我去盗·塃 \u4F26;提广坦",
-    c_title:"切尼西妯、​​​拉体与森皮境公园",
-    c_sub:"吆人蛋 · 紀念公夂 · 和平拓门",
-    c_m2_label:"在Garibaldi换乘M5缞线",
-    c_m2_desc:"步行2分钟至 <strong>Loreto M2</strong> → 方向 <strong>Abbiategrasso</strong> → 在 <strong>Garibaldi FS</strong> 下车（2站）。换乘 <span class='badge badge-m5'>M5缞线</span>。",
-    c_m5_label:"— 前往公夂和切尼西妯",
-    c_m5_desc:"从 <strong>Garibaldi M5</strong> → 方向 <strong>Bignami</strong> → <strong>Monumentale</strong> 站（公夂）或 <strong>Cenisio</strong> 站（吆人蛋）。全程约18分钟。",
-    c_tram_label:"— 前往森皮境公园",
-    c_tram_desc:"从Loreto乘1号电车，歩Corso Sempione至和平拓门。较 \uFFFD;但无需换乘。",
-    c_s1_title:"Cenisio → 保᰽·​​编拉大街（吆人蛋）",
-    c_s1_desc:"向西步行5分钟。正寓仁洲饷饺，东方饲物店，蠩头胚饼，周六早晴的传统集市。",
-    c_s2_title:"M5 Monumentale → 紀念公夂",
-    c_s2_desc:"从出口步行3分钟。新艺术风格阴克，免费进入，除周一外每日开放（8–18）。",
-    c_s3_title:"和平拓门 → 森皮境公园",
-    c_s3_desc:"从Cenisio M5步行15分钟或乘 <span class='badge badge-m5'>M5</span> 至 <strong>Domodossola</strong>。武 \u5170;最大公园：湖泛、跐跳道、自行车道。",
-    c_h1_l:"吆人蛋", c_h1:"正寓仁洲胚饼汉老",
-    c_h2_l:"公夂", c_h2:"免费进入，新艺术风格建空",
-    c_h3_l:"森皮境公园", c_h3:"野饺休闲，全年开放",
-    c_h4_l:"和平拓门", c_h4:"日出或日运时拨设最亵",
-    c_btn:"带我去​​​Sarpi区",
-    n_title:"纳维利运河区",
-    n_sub:"$_\u8FBE尼西夙 · 夜生活 · 运河边酷卟",
-    n_m2_label:"— 单一直达地铿线路",
-    n_m2_desc:"步行2分钟至 <strong>Loreto M2</strong> → 方向 <strong>Abbiategrasso/Assago</strong> → 在 <strong>Porta Genova FS</strong> 下车（8站，约17分钟）。全程约22分钟。",
-    n_tram_label:"— 深夜返程",
-    n_tram_desc:"地铿关闭后（约 \u51CC;晶1:30），夜间3路电车从Porta Genova飛市。非常适合夜游后返程。",
-    n_s1_title:"Porta Genova → 大纳维利运河",
-    n_s1_desc:"步行3分钟。历史酷饰、作冊开胞酷卟、河将画惑。每極米 \u5170;人的胗会优信。",
-    n_s2_title:"大纳维利运河 → $_\u8FBE尼西夙",
-    n_s2_desc:"歩河向北步行10分钟。改造后的港口区，周四早市，夏季可租自行车和皮申。",
-    n_s3_title:"洲​​巫往己 & 帕维俄纳维利运河",
-    n_s3_desc:"洲​​巫往己是米 \u5170;最上頫的中世纪活​​켉켉켉，距Porta Genova 5分钟。向南的帕维俄运河有更安静的酷饰。",
-    n_h1_l:"最佳时段", n_h1:"周四和周六，19:00起",
-    n_h2_l:"开胞酷卟", n_h2:"河边儀多历史酷卟可选",
-    n_h3_l:"集市", n_h3:"每月最后一個周日：划玩集市",
-    n_h4_l:"深夜返程", n_h4:"乘夜间电车回家",
-    n_btn:"带我去纳维利运河区",
-    tips_title:"实用建议",
-    tip1:"单程票：<strong>€2.20</strong> · 有效期90分钟。官方ATM应用或在地铿闭栱使用非接诊式飞行卡。",
-    tip2:"最近的站：<strong>Loreto M1+M2</strong>，步行仅2分钟。M1红线和M2编线均可乘园。",
-    tip3:"地铿约<strong>1:30</strong>关闭（周五、六在2:30）。后可乘夜间电车或使用出秠车应用。",
-    tip4:"<strong>BikeMi</strong>：共享单车和电动车，遍布全市。特别适合樣皮境、纳维利和布`拉。"
+    eyebrow:'宾客指南', title:'LAPO 公寓', address:'米兰罗马大道1号',
+    intro:'欢迎！这里有您完美住宿所需的一切信息。',
+    hostLabel:'您的房东', callHost:'致电',
+    checkinTitle:'入住 & 退房', checkinSub:'时间和公寓入口',
+    checkinLabel:'入住', checkinTime:'下午3点起',
+    checkoutLabel:'退房', checkoutTime:'上午11点前',
+    accessLabel:'门禁', accessDesc:'数字密码',
+    wifiLabel:'Wi-Fi', wifiDesc:'LAPO_Guest · lapo2024',
+    tipsTitle:'温馨提示',
+    tipKey:'门锁密码已在抵达前24小时发送至您的邮箱。',
+    tipLuggage:'如需提前或延迟存放行李，请通过WhatsApp联系房东。',
+    transportTitle:'如何到达', transportSub:'公共交通和机场出租车',
+    fromMalpensa:'从马尔彭萨机场 (MXP)', fromLinate:'从利纳泰机场 (LIN)',
+    openMap:'在谷歌地图中打开',
+    rulesTitle:'房屋规则', rulesSub:'尊重他人的住宿体验',
+    rulesBoxTitle:'请遵守',
+    ruleNoSmoke:'公寓内<strong>禁止吸烟</strong>。',
+    ruleNoPets:'未经事先同意，<strong>不允许携带宠物</strong>。',
+    ruleNoise:'<strong>安静时间</strong>：晚上11点至早上8点。请尊重邻居。',
+    ruleGuests:'未登记的<strong>额外客人</strong>不允许留宿。',
+    ruleTrash:'<strong>垃圾分类：</strong>请按照厨房内的说明操作。',
+    areaTitle:'周边环境', areaSub:'超市、餐厅和景点',
+    supermarket:'超市', pharmacy:'药店', restaurant:'餐厅', cafe:'咖啡馆',
+    topSights:'不容错过',
+    sight1:'<strong>米兰大教堂</strong> · 地铁10分钟',
+    sight2:'<strong>布雷拉画廊</strong> · 步行15分钟',
+    sight3:'<strong>运河区</strong> · 步行20分钟，绝美开胃酒时光',
+    exploreArea:'探索周边',
   },
   es: {
-    eyebrow:"Guia de Huespedes", headline:"Bienvenidos<br>a Milan",
-    hostLabel:"Tu Anfitrión", hostSub:"Disponible para cualquier necesidad", callHost:"Llamar",
-    intro:"Principales atracciones y como llegar en transporte publico. Toca una seccion para expandirla.",
-    how_arrive:"Como llegar", how_move:"Como moverse por la zona",
-    tip:"No te pierdas", advice:"Consejo", tips_title:"Consejos practicos",
-    d_title:"Duomo & Centro Historico", d_sub:"Plaza del Duomo · Castillo Sforzesco · Teatro alla Scala",
-    d_m1_label:"— Opcion recomendada",
-    d_m1_desc:"Camina 2 min hasta <strong>Loreto M1+M2</strong> → <strong>M1 Roja</strong> dir. <strong>Bisceglie/Rho Fiera</strong> → baja en <strong>Duomo</strong> (5 paradas, ~10 min). Salida directa a la Plaza del Duomo.",
-    d_m3_label:"— Alternativa por Centrale",
-    d_m3_desc:"Desde Loreto toma <strong>M2</strong> una parada hasta <strong>Caiazzo</strong>, luego Tranvia 9 hacia <strong>Centrale FS</strong> → <strong>M3 Amarilla</strong> dir. <strong>San Donato</strong> → baja en <strong>Duomo</strong> (4 paradas).",
-    d_s1_title:"Duomo → Castillo Sforzesco",
-    d_s1_desc:"A pie por Via Dante (15 min) o <span class='badge badge-m1'>M1</span> una parada hasta <strong>Cairoli</strong>. Parque libre, museos de pago. Cerca: La Ultima Cena de Leonardo (reserva obligatoria).",
-    d_s2_title:"Duomo → Plaza de la Scala",
-    d_s2_desc:"5 min a pie cruzando la <strong>Galeria Vittorio Emanuele II</strong>. Tradicion milanesa: girar el talon sobre el toro del mosaico para buena suerte. Museo del Teatro alla Scala abierto todos los dias.",
-    d_s3_title:"Compras: Cuadrilatero de la Moda",
-    d_s3_desc:"<span class='badge badge-m3'>M3</span> parada <strong>Montenapoleone</strong>. Via Montenapoleone y Via della Spiga: las mejores firmas internacionales.",
-    d_h1:"Terraza del Duomo al atardecer", d_h2:"Reserva online recomendada",
-    d_h3_label:"Galeria V.E. II", d_h3:"Abierta 24h, cafes historicos",
-    d_h4_label:"La Ultima Cena", d_h4:"Reserva con meses de antelacion!",
-    d_btn:"Llevame al Duomo",
-    g_title:"Gae Aulenti & Isola", g_sub:"Corso Como · Corso Garibaldi · Bosque Vertical",
-    g_m2_label:"— Opcion principal",
-    g_m2_desc:"Camina 2 min hasta <strong>Loreto M2</strong> → dir. <strong>Abbiategrasso</strong> → baja en <strong>Garibaldi FS</strong> (2 paradas, ~5 min). Salida a Plaza Gae Aulenti. Total: ~10 min.",
-    g_tram_label:"— Alternativa panoramica",
-    g_tram_desc:"El Tranvia 9 desde Loreto recorre Viale Monza hacia Centrale y luego Garibaldi. Mas lento pero sin transbordos.",
-    g_s1_title:"Gae Aulenti → Corso Como",
-    g_s1_desc:"3 min a pie. Un concept store iconico con restaurante y galeria de arte en el patio — la direccion mas trendy de Milan.",
-    g_s2_title:"Garibaldi → Corso Garibaldi",
-    g_s2_desc:"5 min a pie hacia el sur. Comida callejera, tiendas independientes, cafe de especialidad. La calle llega hasta Brera, el barrio de los artistas.",
-    g_s3_title:"Barrio Isola",
-    g_s3_desc:"Desde Gae Aulenti, cruza el puente peatonal hacia el norte (10 min). Arte urbano, mercadillos vintage, bares de aperitivo. M5 <strong>Isola</strong> para volver.",
-    g_h1_l:"Bosque Vertical", g_h1:"Mejores fotos desde la plaza, bonito de noche",
-    g_h2_l:"Aperitivo", g_h2:"Isola: varios bares de aperitivo",
-    g_h3_l:"Corso Como", g_h3:"Compras alternativas y diseno",
-    g_h4_l:"Brera", g_h4:"Pinacoteca di Brera, arte renacentista",
-    g_btn:"Llevame a Gae Aulenti",
-    c_title:"Cenisio, Sarpi & Sempione", c_sub:"Barrio Chino · Cementerio Monumental · Arco de la Paz",
-    c_m2_label:"cambio a M5 en Garibaldi",
-    c_m2_desc:"Camina 2 min hasta <strong>Loreto M2</strong> → dir. <strong>Abbiategrasso</strong> → baja en <strong>Garibaldi FS</strong> (2 paradas). Cambia a la <span class='badge badge-m5'>M5 Lila</span>.",
-    c_m5_label:"— Para Monumentale y Cenisio",
-    c_m5_desc:"Desde <strong>Garibaldi M5</strong> → dir. <strong>Bignami</strong> → <strong>Monumentale</strong> para el cementerio, o <strong>Cenisio</strong> para el Barrio Chino. Total: ~18 min.",
-    c_tram_label:"— Para el Parque Sempione",
-    c_tram_desc:"El Tranvia 1 desde Loreto recorre Corso Sempione hasta el Arco de la Paz. Mas lento pero directo.",
-    c_s1_title:"Cenisio → Via Paolo Sarpi (Barrio Chino)",
-    c_s1_desc:"5 min a pie hacia el oeste. Cocina asiatica autentica, tiendas orientales, street food, mercado historico los sabados por la manana.",
-    c_s2_title:"M5 Monumentale → Cementerio Monumental",
-    c_s2_desc:"3 min desde la salida. Esculturas Art Nouveau y mausoleos notables. Entrada gratuita, abierto todos los dias excepto lunes (8–18).",
-    c_s3_title:"Arco de la Paz → Parque Sempione",
-    c_s3_desc:"Desde Cenisio M5, 15 min a pie o <span class='badge badge-m5'>M5</span> hasta <strong>Domodossola</strong>. Lago, footing, carril bici, junto al Castillo Sforzesco.",
-    c_h1_l:"Barrio Chino", c_h1:"Excelente cocina asiatica autentica",
-    c_h2_l:"Cementerio", c_h2:"Entrada gratuita, arte Art Nouveau",
-    c_h3_l:"Parque Sempione", c_h3:"Picnic y relax, siempre abierto",
-    c_h4_l:"Arco de la Paz", c_h4:"Mejor al amanecer o atardecer",
-    c_btn:"Llevame a Sarpi / Cenisio",
-    n_title:"Navigli", n_sub:"Darsena · Vida nocturna · Bares junto al canal",
-    n_m2_label:"— Opcion metro directa",
-    n_m2_desc:"Camina 2 min hasta <strong>Loreto M2</strong> → dir. <strong>Abbiategrasso/Assago</strong> → baja en <strong>Porta Genova FS</strong> (8 paradas, ~17 min). Salida a los Navigli. Total: ~22 min.",
-    n_tram_label:"— Regreso nocturno",
-    n_tram_desc:"Despues de ~1:30, el Tranvia nocturno 3 desde Porta Genova va hacia Centrale. Perfecto para volver tras una noche de fiesta.",
-    n_s1_title:"Porta Genova → Naviglio Grande",
-    n_s1_desc:"3 min a pie. Tabernas historicas, bares de aperitivo y galerias de arte junto al canal. Ritual milanes cada noche, pico jueves y sabados desde las 19h.",
-    n_s2_title:"Naviglio Grande → Darsena",
-    n_s2_desc:"10 min hacia el norte por el canal. Puerto renovado, mercado del jueves por la manana, alquiler de bicicletas y kayaks en verano.",
-    n_s3_title:"Vicolo dei Lavandai & Naviglio Pavese",
-    n_s3_desc:"El Vicolo dei Lavandai es el lavadero medieval mas fotografiado de Milan, a 5 min de Porta Genova. El Naviglio Pavese al sur tiene bares mas tranquilos.",
-    n_h1_l:"Mejor momento", n_h1:"Jueves y sabados desde las 19h",
-    n_h2_l:"Aperitivo", n_h2:"Muchos bares historicos junto al canal",
-    n_h3_l:"Mercadillo", n_h3:"Ultimo domingo del mes: antiguedades",
-    n_h4_l:"Noche tardia", n_h4:"Tranvia nocturno para volver",
-    n_btn:"Llevame a los Navigli",
-    tips_title:"Consejos practicos",
-    tip1:"Billete individual ATM: <strong>€2,20</strong> · valido 90 min. App oficial ATM o tarjeta contactless en los torniquetes.",
-    tip2:"Parada mas cercana: <strong>Loreto M1+M2</strong>, a solo 2 min a pie (salida Plaza Loreto). Lineas M1 Roja y M2 Verde.",
-    tip3:"El metro cierra ~<strong>1:30</strong> (vier-sab a las 2:30). Despues: tranvias nocturnos o apps de taxi.",
-    tip4:"<strong>BikeMi</strong>: bicicletas y e-bikes compartidas por toda la ciudad. Ideal para Sempione, Navigli y Brera."
+    eyebrow:'Guía de Huéspedes', title:'LAPO Apartments', address:'Via Roma 1, Milán',
+    intro:'¡Bienvenido! Aquí encontrarás todo lo que necesitas para una estancia perfecta.',
+    hostLabel:'Tu Anfitrión', callHost:'Llamar',
+    checkinTitle:'Check-in & Check-out', checkinSub:'Horarios y acceso al apartamento',
+    checkinLabel:'Check-in', checkinTime:'desde las 15:00',
+    checkoutLabel:'Check-out', checkoutTime:'antes de las 11:00',
+    accessLabel:'Acceso', accessDesc:'Código digital',
+    wifiLabel:'Wi-Fi', wifiDesc:'LAPO_Guest · lapo2024',
+    tipsTitle:'Notas útiles',
+    tipKey:'El código de la cerradura fue enviado a tu email 24h antes de la llegada.',
+    tipLuggage:'Para guardar el equipaje anticipada o tardíamente, contacta al anfitrión por WhatsApp.',
+    transportTitle:'Cómo Llegar', transportSub:'Transporte público y taxis desde el aeropuerto',
+    fromMalpensa:'Desde Malpensa (MXP)', fromLinate:'Desde Linate (LIN)',
+    openMap:'Abrir en Google Maps',
+    rulesTitle:'Normas de la Casa', rulesSub:'Para una estancia respetuosa',
+    rulesBoxTitle:'Por favor, respeta',
+    ruleNoSmoke:'<strong>Prohibido fumar</strong> dentro del apartamento.',
+    ruleNoPets:'<strong>Mascotas</strong> no admitidas sin acuerdo previo.',
+    ruleNoise:'<strong>Silencio</strong> de 23:00 a 8:00. Respeta a los vecinos.',
+    ruleGuests:'<strong>Huéspedes extra</strong> no registrados no pueden alojarse.',
+    ruleTrash:'<strong>Reciclaje:</strong> sigue las instrucciones en la cocina.',
+    areaTitle:'El Barrio', areaSub:'Supermercados, restaurantes y atracciones',
+    supermarket:'Supermercado', pharmacy:'Farmacia', restaurant:'Restaurante', cafe:'Café',
+    topSights:'Imprescindibles',
+    sight1:'<strong>Duomo de Milán</strong> · 10 min en metro',
+    sight2:'<strong>Pinacoteca di Brera</strong> · 15 min a pie',
+    sight3:'<strong>Navigli</strong> · 20 min a pie, aperitivo imperdible',
+    exploreArea:'Explorar el barrio',
   }
 };
 
-function toggleCard(id) {
-  var card = document.getElementById(id);
-  var isOpen = card.classList.contains('open');
-  var cards = document.querySelectorAll('.section-card');
-  for (var i = 0; i < cards.length; i++) { cards[i].classList.remove('open'); }
-  if (!isOpen) { card.classList.add('open'); }
+let currentLang = 'it';
+
+function applyLang(lang) {
+  const t = i18n[lang] || i18n.it;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+  currentLang = lang;
 }
 
+// ── Drawer lingua ────────────────────────────────────────────────────────────
 function toggleLangDrawer() {
-  document.getElementById('lang-drawer').classList.toggle('open');
-  document.getElementById('host-drawer').classList.remove('open');
+  const d = document.getElementById('lang-drawer');
+  const h = document.getElementById('host-drawer');
+  h.classList.remove('open');
+  d.classList.toggle('open');
 }
-
-function toggleHostDrawer() {
-  document.getElementById('host-drawer').classList.toggle('open');
-  document.getElementById('lang-drawer').classList.remove('open');
-}
-
-document.addEventListener('click', function(e) {
-  var drawer = document.getElementById('lang-drawer');
-  var fab = document.getElementById('lang-fab');
-  var hostDrawer = document.getElementById('host-drawer');
-  var hostFab = document.getElementById('host-fab');
-  if (!drawer.contains(e.target) && !fab.contains(e.target)) {
-    drawer.classList.remove('open');
-  }
-  if (!hostDrawer.contains(e.target) && !hostFab.contains(e.target)) {
-    hostDrawer.classList.remove('open');
-  }
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    applyLang(btn.getAttribute('data-lang'));
+    document.getElementById('lang-drawer').classList.remove('open');
+  });
 });
 
-document.getElementById('lang-drawer').addEventListener('click', function(e) {
-  var btn = e.target.closest('.lang-btn');
-  if (!btn) return;
-  var lang = btn.getAttribute('data-lang');
-  if (!lang || !T[lang]) return;
-  var btns = document.querySelectorAll('.lang-btn');
-  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
-  btn.classList.add('active');
-  document.getElementById('lang-drawer').classList.remove('open');
-  var t = T[lang];
-  var els = document.querySelectorAll('[data-i18n]');
-  for (var j = 0; j < els.length; j++) {
-    var key = els[j].getAttribute('data-i18n');
-    if (t[key] !== undefined) { els[j].innerHTML = t[key]; }
-  }
+// ── Drawer host ──────────────────────────────────────────────────────────────
+function toggleHostDrawer() {
+  const d = document.getElementById('host-drawer');
+  const l = document.getElementById('lang-drawer');
+  l.classList.remove('open');
+  d.classList.toggle('open');
 }
-);
+
+// ── Chiudi drawer cliccando fuori ────────────────────────────────────────────
+document.addEventListener('click', e => {
+  if (!e.target.closest('#lang-drawer') && !e.target.closest('#lang-fab'))
+    document.getElementById('lang-drawer').classList.remove('open');
+  if (!e.target.closest('#host-drawer') && !e.target.closest('#host-fab'))
+    document.getElementById('host-drawer').classList.remove('open');
+});
+
+// ── Toggle card accordion ────────────────────────────────────────────────────
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+applyLang('it');
 </script>
 </body>
 </html>
